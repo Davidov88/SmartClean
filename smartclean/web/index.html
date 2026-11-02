@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>SmartClean — медиатека</title><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css"></head>
+<body>
+<aside class="sidebar">
+ <a class="brand" href="/" aria-label="SmartClean, главная"><span class="brand-icon">S</span>SmartClean<span class="version">0.1</span></a>
+ <div class="workspace"><span class="dot"></span>Локальная медиатека<small>Файлы остаются на своих местах</small></div>
+ <div class="nav-label">ОБЗОР</div>
+ <nav aria-label="Разделы">
+  <button data-tab="catalog" class="active"><span>▦</span>Каталог</button>
+  <button data-tab="duplicates"><span>◫</span>Точные дубли</button>
+  <button data-tab="similar"><span>◈</span>Похожие фото</button>
+  <button data-tab="labels"><span>♧</span>Коллекции и метки</button>
+ </nav>
+ <div class="nav-label second">УПРАВЛЕНИЕ</div>
+ <nav aria-label="Управление"><button data-tab="analysis"><span>✧</span>Анализ и возможности</button><button data-tab="settings"><span>⚙</span>Источники и исключения</button></nav>
+ <div class="sidebar-bottom"><span class="dot"></span>Работает на этом компьютере<small>Оригиналы не изменяются</small></div>
+</aside>
+<main>
+ <header><div class="breadcrumb">Моя медиатека <span>/</span> <b id="breadcrumb">Каталог</b></div><div class="header-right"><span class="local-pill">● Локально</span><button id="refresh" class="icon-button" title="Обновить">↻</button></div></header>
+ <div class="content">
+  <div class="page-head"><div><div class="eyebrow">ПОРЯДОК В ВАШИХ ФАЙЛАХ</div><h1 id="title">Вся медиатека. Одно место.</h1><p id="subtitle">Находите нужное, сравнивайте копии и исследуйте свою коллекцию.</p></div><button id="resume" class="primary" hidden>Продолжить сравнение</button><button id="scan" class="primary">↻ &nbsp; Сканировать</button></div>
+  <div id="toast" role="status" hidden></div>
+  <section class="stats" aria-label="Статистика медиатеки">
+   <article><span>Всего файлов</span><strong id="stat-files">0</strong><small>в выбранных источниках</small></article>
+   <article><span>Фото</span><strong id="stat-images">0</strong><small>снимки и изображения</small></article>
+   <article><span>Видео</span><strong id="stat-videos">0</strong><small>ролики и записи</small></article>
+   <article><span>Объём коллекции</span><strong id="stat-bytes">0 Б</strong><small>логический размер файлов</small></article>
+  </section>
+  <section id="job-panel" class="job-panel" hidden aria-live="polite"><div><span class="pulse"></span><strong id="job-name">Сканирование</strong><span id="job-state"></span></div><p id="job-explanation"></p><p id="job-counters"></p><p id="job-timing"></p><button id="job-errors" class="secondary" hidden>Показать ошибки</button><div class="job-bottom"><code id="job-path"></code><button id="cancel" class="secondary">Остановить</button></div></section>
+  <section id="catalog" class="view">
+   <div class="toolbar"><label class="search"><span>⌕</span><input id="search" placeholder="Найти по имени, пути или метке…" aria-label="Поиск"></label><select id="kind" aria-label="Тип"><option value="">Все файлы</option value="image">Фото</option><option value="video">Видео</option></select><select id="extension" aria-label="Формат"><option value="">Все форматы</option></select><select id="aspect" aria-label="Соотношение сторон"><option value="">Все пропорции</option><option>16:9</option><option>9:16</option><option>4:3</option><option>3:4</option><option>3:2</option><option>2:3</option><option>1:1</option></select><select id="sort" aria-label="Сортировка"><option value="largest">Сначала крупные</option><option value="newest">Сначала новые</option><option value="name">По пути</option></select></div>
+   <div class="section-heading"><h2>Файлы коллекции <span id="file-count">0</span></h2><span>Превью по запросу · оригиналы на дисках</span></div>
+   <div id="grid" class="grid"></div><div id="catalog-empty" class="empty"><div class="empty-art">▦</div><h2>Начнём с ваших папок</h2><p>Добавьте источники. SmartClean составит каталог фото и видео<br>и сравнит содержимое возможных дублей.</p><button id="add-sources" class="primary">Добавить источники <span>→</span></button><div class="empty-note">Без копирования коллекции и изменения оригиналов</div></div>
+   <div class="pagination"><button id="prev" class="secondary">← Назад</button><span id="page-label"></span><button id="next" class="secondary">Далее →</button></div>
+  </section>
+  <section id="duplicates" class="view" hidden><div class="info-banner">Совпадения подтверждены полным SHA-256 на момент сканирования. Действия с оригиналами в этой версии отключены.</div><div id="duplicate-list"></div><div class="pagination"><button id="dup-prev" class="secondary">← Назад</button><span id="dup-page"></span><button id="dup-next" class="secondary">Далее →</button></div></section>
+  <section id="similar" class="view" hidden><div class="info-banner">Визуально похожие фото — кандидаты для сравнения. Совпадение не означает, что файл можно удалить. Сначала запустите анализ.</div><div class="toolbar"><label>Допустимое различие <select id="threshold"><option value="3">Небольшое · 3</option><option value="5" selected>Среднее · 5</option><option value="8">Расширенное · 8</option></select></label><button id="find-similar" class="secondary">Сравнить фото</button></div><p id="similar-note" class="muted"></p><div id="similar-list"></div></section>
+  <section id="labels" class="view" hidden><div class="info-banner">Люди, места, объекты, события и свободные метки. В этой версии метки назначаются вручную в карточке файла. Автоматическое распознавание ещё не подключено.</div><div id="label-list" class="label-groups"></div></section>
+  <section id="analysis" class="view" hidden><div class="section-heading"><h2>Анализ содержимого</h2><button id="analyze" class="primary">Запустить анализ</button></div><p class="muted">Фоновая задача дополняет каталог. Повторно обрабатываются только новые или изменённые файлы.</p><div id="capabilities" class="feature-grid"></div><div class="section-heading"><h2>Последние задачи</h2></div><div id="history"></div><details class="errors"><summary>Ошибки и недоступные файлы</summary><div id="errors"></div></details></section>
+  <section id="settings" class="view" hidden><form id="settings-form"><div class="settings-grid"><article class="settings-card"><h2>Источники</h2><p>По одной абсолютной папке на строку. Можно указать корень диска.</p><textarea id="roots" rows="7" spellcheck="false" aria-label="Папки источников" placeholder="Абсолютные пути к папкам"></textarea><h3>Доступные диски</h3><div id="volumes"></div></article><article class="settings-card"><h2>Исключения</h2><p>Эти папки и всё их содержимое не попадут в каталог.</p><textarea id="exclusions" rows="7" spellcheck="false" aria-label="Исключённые пути"></textarea><label class="checkbox"><input type="checkbox" id="system-exclusions">Пропускать системные папки</label><label>Пропускать папки с именами<textarea id="exclude-names" rows="4" spellcheck="false"></textarea></label></article></div><details class="settings-card advanced"><summary>Параметры обработки</summary><label>Минимальный размер файла, байт<input id="min-size" type="number" min="1" value="1"></label><label>Путь к ffprobe (пусто — искать в PATH)<input id="ffprobe" spellcheck="false"></label><label>Путь к ffmpeg (пусто — искать в PATH)<input id="ffmpeg" spellcheck="false"></label><p>ffprobe читает свойства видео. ffmpeg создаёт превью. Приложение не скачивает их автоматически.</p></details><div class="settings-footer"><span>Настройки хранятся только на этом компьютере</span><button class="primary" type="submit">Сохранить настройки</button></div></form></section>
+  <footer>SmartClean <span>•</span> Ваша коллекция под вашим контролем <span class="footer-right">Локальный каталог · v0.1</span></footer>
+ </div>
+</main>
+<dialog id="detail"><div class="detail-head"><h2>Сведения о файле</h2><button id="close-detail" class="icon-button" aria-label="Закрыть">×</button></div><div id="detail-content"></div><form id="label-form"><h3>Добавить метку</h3><div class="toolbar"><select id="label-category" aria-label="Категория метки"><option value="person">Человек</option><option value="place">Место</option><option value="object">Объект</option><option value="event">Событие</option><option value="tag">Метка</option></select><input id="label-value" required maxlength="120" placeholder="Название"><button class="primary">Добавить</button></div></form></dialog>
+<script src="/app.js" defer></script>
+</body></html>

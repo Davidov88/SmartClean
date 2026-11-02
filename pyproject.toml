@@ -1,0 +1,16 @@
+[project]
+name = "smartclean"
+version = "0.1.0"
+description = "Local, incremental media inventory and duplicate review"
+requires-python = ">=3.11"
+dependencies = ["Pillow>=12.0,<14"]
+
+[project.scripts]
+smartclean = "smartclean.__main__:main"
+
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.package-data]
+smartclean = ["web/*"]
