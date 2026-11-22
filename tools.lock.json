@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "windirstat": {
+    "version": "2.9.3",
+    "archiveUrl": "https://github.com/windirstat/windirstat/releases/download/release/v2.9.3/WinDirStat.zip",
+    "archiveSha256": "c980fee14389eb3a160415b0a07361900f3630f232501884863fec40f369a4a4",
+    "sourceUrl": "https://github.com/windirstat/windirstat/tree/release/v2.9.3",
+    "binarySha256": {
+      "x64": "c6925752fe688aa72115723f23dbb95a7e1c55f094a7d7f30acb5f509a38045b",
+      "x86": "f46305b80668de85082b7c141db1e0a33ddd5636c76fa2ad6369b48a66ff19ea",
+      "arm64": "d9180f12c466343ff57c9d51a18d353db403a2f0136c2da72b0409f6771da501"
+    }
+  },
+  "gdu": {
+    "version": "5.38.0",
+    "archiveUrl": "https://github.com/dundee/gdu/releases/download/v5.38.0/gdu_windows_amd64.exe.zip",
+    "archiveSha256": "22e6616e0bdc25d8d803934b4d3189996ebf74de8ac9b3635a4e4e079c3d7f8a",
+    "sourceUrl": "https://github.com/dundee/gdu/tree/v5.38.0"
+  }
+}

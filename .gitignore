@@ -1,0 +1,15 @@
+/build/
+/data/
+/policy/
+/tools/
+/settings.json
+/scan.lock
+/tests/features/
+/tests/runs/
+/tests/app-data/
+/research/cleanup-*/
+/research/d-cleanup-*/
+*.tmp
+*.log
+*.exe
+/SmartClean.exe.config
